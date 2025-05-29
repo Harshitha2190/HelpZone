@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>𝙃𝙚𝙡𝙥𝙕𝙤𝙣𝙚 - Request Help</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  
+  <header>
+    <h1>𝙃𝙚𝙡𝙥𝙕𝙤𝙣𝙚🚨</h1>
+    <p>𝘞𝘩𝘦𝘳𝘦 𝘴𝘮𝘢𝘭𝘭 𝘢𝘤𝘵𝘴 𝘣𝘦𝘤𝘰𝘮𝘦 𝘭𝘪𝘧𝘦𝘴𝘢𝘷𝘪𝘯𝘨 𝘮𝘰𝘷𝘦𝘴 ❤</p>
+  </header>
+
+  <main>
+    <section id="requestHelp">
+      <h2>𝘙𝘦𝘲𝘶𝘦𝘴𝘵 𝘩𝘦𝘭𝘱 𝘯𝘰𝘸✋</h2>
+      <form id="helpForm">
+        <label for="location">📍 Your Location:</label>
+        <input type="text" id="location" name="location" placeholder="Enter your location..." required />
+
+        <label for="gender">🧑 Gender:</label>
+        <select id="gender" name="gender" required>
+          <option value="" disabled selected>Select your gender</option>
+          <option value="Male">👨 Male</option>
+          <option value="Female">👩 Female</option>
+          <option value="Other">🧑‍🦱 Other</option>
+        </select>
+
+        <label for="emergency">⚠ Type of Emergency:</label>
+        <select id="emergency" name="emergency" required>
+          <option value="" disabled selected>Select an emergency</option>
+          <option value="Medical">🩺 Medical</option>
+          <option value="Fire">🔥 Fire</option>
+          <option value="Accident">🚗 Accident</option>
+          <option value="Other">❓ Other</option>
+        </select>
+
+        <div id="otherInputDiv" style="display:none;">
+          <label for="otherDetails">✏ Please specify:</label>
+          <input type="text" id="otherDetails" name="otherDetails" placeholder="Enter details..." />
+        </div>
+
+        <!-- New input for additional emergency details -->
+        <div id="extraDetailsDiv" style="display:none;">
+          <label for="extraDetails">📝 Please explain your emergency:</label>
+          <input type="text" id="extraDetails" name="extraDetails" placeholder="Enter further explanation..." />
+        </div>
+
+        <label for="phone">📞 Phone Number (Optional):</label>
+        <input type="text" id="phone" name="phone" placeholder="Enter your phone number..." />
+
+        <button type="submit">Send Help Request 🚀</button>
+      </form>
+    </section>
+  </main>
+
+  <footer>
+    <p>&copy; 2025 HelpZone. All Rights Reserved. </p>
+  </footer>
+
+  <script type="module" src="script.js"></script>
+</body>
+</html>

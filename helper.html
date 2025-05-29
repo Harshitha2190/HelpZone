@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>HelpZone Live Requests</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #8dd7eb, #024960);
+      padding: 20px;
+      color: #fff;
+      text-align: center;
+      min-height: 100vh;
+      margin: 0;
+    }
+
+    h2 {
+      font-size: 36px;
+      margin-bottom: 30px;
+      font-weight: 700;
+      text-shadow: 1px 1px 4px rgba(0,0,0,0.3);
+    }
+
+    #requests {
+      max-width: 900px;
+      margin: auto;
+      padding: 0;
+      list-style: none;
+    }
+
+    .request-card {
+      background-color: #fff;
+      color: #333;
+      border-radius: 15px;
+      padding: 25px 30px;
+      margin-bottom: 25px;
+      box-shadow: 0 6px 15px rgba(0,0,0,0.2);
+      text-align: left;
+      transition: transform 0.3s ease;
+      font-size: 1.1rem;
+      line-height: 1.5;
+      position: relative;
+    }
+
+    .request-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 12px 30px rgba(0,0,0,0.3);
+    }
+
+    .field-label {
+      font-weight: 600;
+      color: #c21d8b;
+      display: inline-block;
+      width: 130px;
+    }
+
+    .status {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      padding: 8px 16px;
+      border-radius: 20px;
+      font-weight: 700;
+      font-size: 0.9rem;
+      color: #fff;
+      user-select: none;
+    }
+
+    .status.Pending {
+      background-color: #fbc02d;
+      box-shadow: 0 0 8px #fbc02daa;
+    }
+
+    .status.Resolved {
+      background-color: #43a047;
+      box-shadow: 0 0 8px #43a047aa;
+    }
+
+    .timestamp {
+      margin-top: 12px;
+      font-style: italic;
+      color: #777;
+    }
+  </style>
+</head>
+<body class="helper-page">
+  <h2>Live Help Requests</h2>
+  <ul id="requests"></ul>
+  
+
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
+    import { getDatabase, ref, onChildAdded } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-database.js";
+
+    // Firebase config
+    const firebaseConfig = {
+      apiKey: "AIzaSyAcGaqJWBSt4f7FXDit6HfuEdslZWDtEWw",
+      authDomain: "helpzone2-21857.firebaseapp.com",
+      databaseURL: "https://helpzone2-21857-default-rtdb.asia-southeast1.firebasedatabase.app",
+      projectId: "helpzone2-21857",
+      storageBucket: "helpzone2-21857.appspot.com",
+      messagingSenderId: "1096111837111",
+      appId: "1:1096111837111:web:ada1f3e48964a194092232"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const db = getDatabase(app);
+    const requestsRef = ref(db, "helpRequests/");
+    const requestsList = document.getElementById("requests");
+
+    onChildAdded(requestsRef, (snapshot) => {
+      const request = snapshot.val();
+      const li = document.createElement("li");
+      li.className = "request-card";
+
+      // Build HTML safely with checks
+      let html = `
+        <span class="status ${request.status || 'Pending'}">${request.status || 'Pending'}</span>
+        <div><span class="field-label">Location:</span> ${request.location || 'N/A'}</div>
+        <div><span class="field-label">Gender:</span> ${request.gender || 'N/A'}</div>
+        <div><span class="field-label">Emergency:</span> ${request.emergency || 'N/A'}</div>`;
+
+      if (request.otherDetails) {
+        html +=` <div><span class="field-label">Other Details:</span> ${request.otherDetails}</div>`;
+      }
+
+      if (request.extraDetails) {
+        html += `<div><span class="field-label">Explanation:</span> ${request.extraDetails}</div>`;
+      }
+
+      if (request.phone) {
+        html += `<div><span class="field-label">Phone:</span> ${request.phone}</div>`;
+      }
+
+      html += `
+        <div class="timestamp">${request.timestamp || 'Timestamp not available'}</div>
+      `;
+
+      li.innerHTML = html;
+      requestsList.prepend(li);
+    });
+  </script>
+</body>
+</html>
